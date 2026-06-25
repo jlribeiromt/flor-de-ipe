@@ -115,7 +115,7 @@ function atualizarInterfaceSacola() {
     lista.innerHTML = sacola.length === 0 ? '<p class="text-center">Sua sacola está vazia.</p>' : 
         sacola.map(item => `
             <div class="d-flex align-items-center mb-3">
-                <img src="imagens/${item.imagem}" style="width:50px; height:60px; object-fit:cover;">
+                <img src="${URL_IMAGEM_CATALOGO}${item.imagem}" style="width:50px; height:60px; object-fit:cover;">
                 <div class="ms-3">
                     <h6 class="mb-0">${item.nome}</h6>
                     <button class="btn btn-link btn-sm text-danger p-0" onclick="removerDaSacola(${item.id})">Remover</button>
