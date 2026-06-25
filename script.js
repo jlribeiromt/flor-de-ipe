@@ -2,6 +2,7 @@
 // CONFIGURAÇÃO DA API (GITHUB)
 // ==========================================
 const URL_CATALOGO = 'https://raw.githubusercontent.com/jlribeiromt/flor-de-ipe-catalogo/main/produtos.json';
+const URL_IMAGEM_CATALOGO = 'https://raw.githubusercontent.com/jlribeiromt/flor-de-ipe-catalogo/main/imagens/';
 
 let produtosJSON = [];
 let configsLoja = {};
@@ -25,7 +26,7 @@ async function carregarDados() {
             gridDestaques.innerHTML = dados.destaques.map(item => `
                 <div class="col-md-4">
                     <div class="card-colecao">
-                        <img src="imagens/${item.imagem}" loading="lazy" alt="${item.titulo}">
+                        <img src="${URL_IMAGEM_CATALOGO}${item.imagem}" loading="lazy" alt="${item.titulo}">
                         <div class="card-colecao-title">${item.titulo}</div>
                     </div>
                 </div>
@@ -74,7 +75,7 @@ function renderizarProdutos() {
     
     grid.innerHTML = produtosJSON.map(prod => `
         <div class="masonry-item">
-            <img src="imagens/${prod.imagem}" alt="${prod.nome}" loading="lazy">
+            <img src="${URL_IMAGEM_CATALOGO}${prod.imagem}" alt="${prod.nome}" loading="lazy">
             <div class="produto-info">
                 <span class="text-uppercase small mb-1 d-block" style="color: var(--cor-rose-accent);">${prod.categoria}</span>
                 <h5 class="titulo-premium">${prod.nome}</h5>
