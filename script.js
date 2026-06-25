@@ -16,11 +16,9 @@ async function carregarDados() {
         const resposta = await fetch(URL_CATALOGO);
         const dados = await resposta.json();
 
-        // Armazena dados globais
         configsLoja = dados.configuracoes;
         produtosJSON = dados.produtos;
 
-        // 1. Renderizar Destaques (Coleções)
         const gridDestaques = document.getElementById('grid-destaques');
         if (gridDestaques) {
             gridDestaques.innerHTML = dados.destaques.map(item => `
@@ -33,53 +31,27 @@ async function carregarDados() {
             `).join('');
         }
 
-        // 2. Renderizar Vitrine (Novidades)
         renderizarProdutos();
-
-        // 3. Aplicar Configurações (WhatsApp, Horários, etc)
         aplicarConfiguracoesDaLoja();
-
     } catch (e) { 
-        console.error("Erro ao carregar dados do GitHub:", e); 
+        console.error("Erro ao carregar dados:", e); 
     }
 }
 
 // ==========================================
-// FUNÇÕES DE EXIBIÇÃO E CONFIGURAÇÃO
+// FUNÇÕES DE EXIBIÇÃO E MODAL
 // ==========================================
-
-function aplicarConfiguracoesDaLoja() {
-    // Links de Redes Sociais
-    document.querySelectorAll('.link-whatsapp').forEach(btn => btn.href = `https://wa.me/${configsLoja.whatsapp}`);
-    document.querySelectorAll('.link-instagram').forEach(btn => btn.href = configsLoja.instagram);
-    document.querySelectorAll('.link-facebook').forEach(btn => btn.href = configsLoja.facebook);
-    document.querySelectorAll('.link-tiktok').forEach(btn => btn.href = configsLoja.tiktok);
-    document.querySelectorAll('.link-maps').forEach(btn => btn.href = configsLoja.maps);
-
-    // Rodapé
-    const listaHorarios = document.getElementById('lista-horarios');
-    if (listaHorarios) {
-        listaHorarios.innerHTML = configsLoja.horarios.map(h => `<li class="mb-2">${h}</li>`).join('');
-        listaHorarios.innerHTML += `
-            <li class="mb-2 mt-3"><i class="bi bi-geo-alt me-1"></i> ${configsLoja.endereco_curto}</li>
-            <li class="mt-3 text-warning font-weight-bold" style="font-size: 0.85rem;">
-                <i class="bi bi-box-seam me-1"></i> ${configsLoja.abrangencia}
-            </li>
-        `;
-    }
-}
-
 function renderizarProdutos() {
     const grid = document.getElementById('grid-produtos');
     if (!grid) return;
     
     grid.innerHTML = produtosJSON.map(prod => `
         <div class="masonry-item">
-            <img src="${URL_IMAGEM_CATALOGO}${prod.imagem}" alt="${prod.nome}" loading="lazy">
+            <img src="${URL_IMAGEM_CATALOGO}${prod.imagem}" alt="${prod.nome}" loading="lazy" 
+                 onclick="abrirModal(${prod.id}, '${prod.nome}', '${URL_IMAGEM_CATALOGO}${prod.imagem}', '${prod.descricao}')" 
+                 style="cursor: pointer;">
             <div class="produto-info">
-                <span class="text-uppercase small mb-1 d-block" style="color: var(--cor-rose-accent);">${prod.categoria}</span>
                 <h5 class="titulo-premium">${prod.nome}</h5>
-                <p class="text-muted small">${prod.descricao}</p>
                 <button class="btn btn-outline-premium w-100 py-2" onclick="adicionarASacola(${prod.id})">
                     Adicionar à Sacola
                 </button>
@@ -88,9 +60,38 @@ function renderizarProdutos() {
     `).join('');
 }
 
+function abrirModal(id, nome, img, desc) {
+    document.getElementById('modalNome').innerText = nome;
+    document.getElementById('modalImagem').src = img;
+    document.getElementById('modalDescricao').innerText = desc;
+    
+    const btnAdd = document.getElementById('btn-add-modal');
+    btnAdd.onclick = function() {
+        adicionarASacola(id);
+        bootstrap.Modal.getInstance(document.getElementById('modalProduto')).hide();
+    };
+    
+    new bootstrap.Modal(document.getElementById('modalProduto')).show();
+}
+
 // ==========================================
-// SACOLA E WHATSAPP (MANTIDOS)
+// SACOLA E CONFIGURAÇÕES
 // ==========================================
+function aplicarConfiguracoesDaLoja() {
+    document.querySelectorAll('.link-whatsapp').forEach(btn => btn.href = `https://wa.me/${configsLoja.whatsapp}`);
+    document.querySelectorAll('.link-instagram').forEach(btn => btn.href = configsLoja.instagram);
+    document.querySelectorAll('.link-facebook').forEach(btn => btn.href = configsLoja.facebook);
+    document.querySelectorAll('.link-tiktok').forEach(btn => btn.href = configsLoja.tiktok);
+    document.querySelectorAll('.link-maps').forEach(btn => btn.href = configsLoja.maps);
+
+    const listaHorarios = document.getElementById('lista-horarios');
+    if (listaHorarios) {
+        listaHorarios.innerHTML = configsLoja.horarios.map(h => `<li class="mb-2">${h}</li>`).join('') + `
+            <li class="mb-2 mt-3"><i class="bi bi-geo-alt me-1"></i> ${configsLoja.endereco_curto}</li>
+            <li class="mt-3 text-warning font-weight-bold" style="font-size: 0.85rem;"><i class="bi bi-box-seam me-1"></i> ${configsLoja.abrangencia}</li>`;
+    }
+}
+
 function adicionarASacola(idProduto) {
     const produto = produtosJSON.find(p => p.id === idProduto);
     if (!produto || sacola.find(item => item.id === idProduto)) return;
@@ -98,8 +99,7 @@ function adicionarASacola(idProduto) {
     sacola.push(produto);
     localStorage.setItem('flor_ipe_sacola_v2', JSON.stringify(sacola));
     atualizarInterfaceSacola();
-    const bsOffcanvas = new bootstrap.Offcanvas('#sacolaOffcanvas');
-    bsOffcanvas.show();
+    bootstrap.Offcanvas.getOrCreateInstance('#sacolaOffcanvas').show();
 }
 
 function removerDaSacola(idProduto) {
@@ -125,43 +125,9 @@ function atualizarInterfaceSacola() {
 }
 
 document.getElementById('btn-whatsapp').addEventListener('click', () => {
-    const msg = `Olá! Gostaria de verificar a disponibilidade destes looks:%0A` + 
-                sacola.map(i => `- ${i.nome}`).join('%0A');
+    const msg = `Olá! Gostaria de verificar a disponibilidade destes looks:%0A` + sacola.map(i => `- ${i.nome}`).join('%0A');
     window.open(`https://wa.me/${configsLoja.whatsapp}?text=${msg}`, '_blank');
 });
-
-function renderizarProdutos() {
-    const grid = document.getElementById('grid-produtos');
-    if (!grid) return;
-    
-    grid.innerHTML = produtosJSON.map(prod => `
-        <div class="masonry-item">
-            <img src="${URL_IMAGEM_CATALOGO}${prod.imagem}" alt="${prod.nome}" loading="lazy" 
-                 onclick="abrirModal('${prod.nome}', '${URL_IMAGEM_CATALOGO}${prod.imagem}', '${prod.descricao}')" 
-                 style="cursor: pointer;">
-            <div class="produto-info">
-                <h5 class="titulo-premium">${prod.nome}</h5>
-                <button class="btn btn-outline-premium w-100 py-2" onclick="adicionarASacola(${prod.id})">
-                    Adicionar à Sacola
-                </button>
-            </div>
-        </div>
-    `).join('');
-}
-
-function abrirModal(id, nome, img, desc) {
-    document.getElementById('modalNome').innerText = nome;
-    document.getElementById('modalImagem').src = img;
-    document.getElementById('modalDescricao').innerText = desc;
-    
-    // Configura o botão da modal para adicionar o produto correto
-    const btnAdd = document.getElementById('btn-add-modal');
-    btnAdd.onclick = function() {
-        adicionarASacola(id);
-    };
-    
-    new bootstrap.Modal(document.getElementById('modalProduto')).show();
-}
 
 document.addEventListener('DOMContentLoaded', () => {
     carregarDados();
