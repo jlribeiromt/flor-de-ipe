@@ -149,10 +149,17 @@ function renderizarProdutos() {
     `).join('');
 }
 
-function abrirModal(nome, img, desc) {
+function abrirModal(id, nome, img, desc) {
     document.getElementById('modalNome').innerText = nome;
     document.getElementById('modalImagem').src = img;
     document.getElementById('modalDescricao').innerText = desc;
+    
+    // Configura o botão da modal para adicionar o produto correto
+    const btnAdd = document.getElementById('btn-add-modal');
+    btnAdd.onclick = function() {
+        adicionarASacola(id);
+    };
+    
     new bootstrap.Modal(document.getElementById('modalProduto')).show();
 }
 
