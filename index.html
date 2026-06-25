@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flor de Ipê | Boutique Premium Plus Size Para Todas</title>
+    <meta name="description" content="Moda Feminina Plus Size em Sinop MT. Uma experiência de boutique premium, democrática e acolhedora que celebra a beleza real de todas as mulheres.">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        /* PALETA DE CORES */
+        :root {
+            --cor-primaria: #D4AF37;
+            --cor-rose-suave: #F5EAE6;
+            --cor-rose-accent: #A87C84;
+            --cor-fundo: #FCFBF9;
+            --cor-texto: #2C2A29;
+            --cor-branco: #FFFFFF;
+            --fonte-titulo: 'Playfair Display', serif;
+            --fonte-texto: 'Montserrat', sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: var(--fonte-texto);
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6, .titulo-premium {
+            font-family: var(--fonte-titulo);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        section { padding: 120px 0; }
+        .section-tint { background-color: var(--cor-rose-suave); }
+
+        /* BOTÕES */
+        .btn-premium {
+            background-color: var(--cor-texto);
+            color: var(--cor-branco);
+            border: 1px solid var(--cor-texto);
+            border-radius: 0;
+            padding: 14px 35px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+        }
+        .btn-premium:hover {
+            background-color: transparent; color: var(--cor-texto); border-color: var(--cor-texto);
+        }
+
+        .btn-outline-premium {
+            background-color: transparent; color: var(--cor-texto); border: 1px solid var(--cor-texto);
+            border-radius: 0; padding: 14px 35px; font-size: 0.85rem; font-weight: 500;
+            letter-spacing: 2px; text-transform: uppercase; transition: all 0.4s ease;
+        }
+        .btn-outline-premium:hover {
+            background-color: var(--cor-texto); color: var(--cor-branco);
+        }
+
+        .detalhe-ouro {
+            border-bottom: 1px solid var(--cor-primaria); display: inline-block; padding-bottom: 4px;
+        }
+
+        /* CABEÇALHO */
+        .navbar {
+            background-color: rgba(252, 251, 249, 0.92) !important; backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(44, 42, 41, 0.06); padding-top: 20px !important;
+            padding-bottom: 20px !important; transition: all 0.3s ease;
+        }
+        .navbar-brand {
+            font-family: var(--fonte-titulo); font-size: 1.6rem; letter-spacing: 3px;
+            font-weight: 500; color: var(--cor-texto) !important;
+        }
+        .nav-link {
+            font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin: 0 8px;
+            font-weight: 400; color: var(--cor-texto) !important; opacity: 0.8;
+            transition: opacity 0.3s ease; white-space: nowrap;
+        }
+        .nav-link:hover { opacity: 1; }
+        
+        /* HERO SECTION */
+        .hero-section { min-height: 100vh; padding: 0; display: flex; align-items: stretch; }
+        .hero-text { padding: 160px 8% 8% 8%; display: flex; flex-direction: column; justify-content: flex-start; }
+        .hero-text h1 { font-size: 3.8rem; line-height: 1.15; margin-bottom: 24px; color: var(--cor-texto); }
+        .hero-text p { font-size: 1.15rem; font-weight: 300; line-height: 1.7; color: #555555; margin-bottom: 45px; }
+        .hero-img {
+            background: url('https://images.unsplash.com/photo-1616422285623-13fa6931fbaf?auto=format&fit=crop&q=80&w=1200') no-repeat center center;
+            background-size: cover; min-height: 60vh;
+        }
+
+        /* MANIFESTO E COLEÇÕES */
+        .secao-manifesto { background-color: #FAF8F5; border-top: 1px solid rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.03); }
+        .bloco-manifesto { max-width: 850px; margin: 0 auto; }
+        .bloco-manifesto h2 { font-size: 2.5rem; margin-bottom: 30px; }
+        .bloco-manifesto p { font-size: 1.25rem; font-weight: 300; line-height: 1.8; color: #4A4A4A; font-style: italic; }
+
+        .card-colecao { position: relative; overflow: hidden; margin-bottom: 30px; cursor: pointer; }
+        .card-colecao img { width: 100%; height: 550px; object-fit: cover; transition: transform 1.2s ease; }
+        .card-colecao:hover img { transform: scale(1.04); }
+        .card-colecao-title {
+            position: absolute; bottom: 35px; left: 35px; background: var(--cor-branco);
+            padding: 12px 30px; font-family: var(--fonte-titulo); font-size: 1.25rem; letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        }
+
+        /* PINTEREST GRID */
+        .masonry { column-count: 3; column-gap: 2rem; }
+        .masonry-item {
+            break-inside: avoid; margin-bottom: 2.5rem; background: var(--cor-branco); padding: 15px;
+            border: 1px solid rgba(0,0,0,0.02); transition: box-shadow 0.4s ease;
+        }
+        .masonry-item:hover { box-shadow: 0 20px 40px rgba(44,42,41,0.05); }
+        .masonry-item img { width: 100%; display: block; border-radius: 0; }
+        .produto-info { padding: 20px 5px 5px 5px; }
+        .produto-info h5 { font-size: 1.2rem; margin-bottom: 8px; color: var(--cor-texto); }
+        .produto-info p { font-size: 0.85rem; color: #666666; letter-spacing: 0.5px; margin-bottom: 15px; }
+
+        .institucional-img { width: 100%; height: 650px; object-fit: cover; }
+        .institucional-texto { padding: 60px 10%; }
+
+        /* MOBILE BOTTOM BAR */
+        .mobile-bottom-bar {
+            position: fixed; bottom: 0; width: 100%; background: var(--cor-branco);
+            border-top: 1px solid rgba(0,0,0,0.05); z-index: 1040; padding: 12px 0;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.04);
+        }
+        .mobile-bottom-bar .nav-link {
+            text-align: center; font-size: 0.75rem; color: var(--cor-texto) !important; padding: 0; margin: 0; font-weight: 500;
+        }
+        .mobile-bottom-bar i { display: block; font-size: 1.4rem; margin-bottom: 3px; color: var(--cor-rose-accent); }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 992px) {
+            .navbar-brand { font-size: 1.4rem; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .masonry { column-count: 2; }
+        }
+        @media (max-width: 768px) {
+            .hero-text h1 { font-size: 2.4rem; }
+            .hero-section { flex-direction: column-reverse; }
+            .hero-img { height: 55vh; min-height: auto; }
+            .hero-text { height: auto; text-align: center; align-items: center; padding: 60px 5%; }
+            .masonry { column-count: 1; }
+            section { padding: 70px 0; }
+            body { padding-bottom: 75px; } 
+            .institucional-img { height: 400px; }
+            .institucional-texto { padding: 40px 5%; }
+            .bloco-manifesto h2 { font-size: 2rem; }
+            .bloco-manifesto p { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. CABEÇALHO -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container px-4">
+            <a class="navbar-brand" href="#">FLOR DE IPÊ</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#colecoes">Coleções</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#novidades">Novidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#manifesto">O Manifesto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#institucional">Sobre Nós</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#avaliacoes">Avaliações</a></li>
+                </ul>
+            </div>
+            <div class="d-none d-lg-flex align-items-center">
+                <a href="#" target="_blank" class="btn btn-outline-premium me-3 link-whatsapp" style="padding: 10px 24px; font-size: 0.75rem;"><i class="bi bi-whatsapp"></i> Atendimento</a>
+                <button class="btn btn-premium position-relative" type="button" data-bs-toggle="offcanvas" data-bs-target="#sacolaOffcanvas" style="padding: 10px 24px; font-size: 0.75rem;">
+                    <i class="bi bi-handbag"></i> Sacola
+                    <span id="contador-sacola-desktop" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero-section">
+        <div class="col-12 col-md-5 hero-text">
+            <span class="text-uppercase mb-3" style="letter-spacing: 4px; font-size: 0.75rem; color: var(--cor-rose-accent); font-weight: 600;">Acolhimento & Sofisticação</span>
+            <h1>A experiência de uma boutique. <br><span class="detalhe-ouro">Para todas.</span></h1>
+            <p>Peças premium plus size selecionadas para mulheres que desejam conforto, elegância e o luxo absoluto de serem exatamente quem são, em qualquer momento.</p>
+            <div class="d-flex gap-3 flex-wrap justify-content-md-start justify-content-center">
+                <a href="#colecoes" class="btn btn-premium">Explorar Looks</a>
+                <a href="#" target="_blank" class="btn btn-outline-premium link-whatsapp"><i class="bi bi-whatsapp"></i> Conversar na Loja</a>
+            </div>
+        </div>
+        <div class="col-12 col-md-7 hero-img"></div>
+    </section>
+
+    <!-- 3. MANIFESTO -->
+    <section id="manifesto" class="secao-manifesto text-center">
+        <div class="container px-4">
+            <div class="bloco-manifesto">
+                <span class="text-uppercase mb-2 d-block" style="letter-spacing: 3px; font-size: 0.8rem; color: var(--cor-rose-accent);">Nosso Posicionamento</span>
+                <h2>Moda democrática sem perder a exclusividade</h2>
+                <p class="mb-0">"Acreditamos que o ambiente de uma boutique de luxo, o atendimento calmo e focado, e o caimento perfeito de tecidos nobres pertencem a todas as mulheres. A Flor de Ipê não divide as mulheres por tamanhos; nós as unimos pela sofisticação e pelo direito de sentir-se extraordinária todos os dias."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. COLEÇÕES -->
+    <section id="colecoes" class="container px-4">
+        <div class="text-center mb-5 pb-3">
+            <span class="text-uppercase mb-2 d-block" style="letter-spacing: 3px; font-size: 0.75rem; color: var(--cor-rose-accent);">Curadoria Exclusiva</span>
+            <h2 class="titulo-premium">Coleções Disponíveis</h2>
+            <p class="text-muted">Espaço, design e fluidez pensados para o seu corpo.</p>
+        </div>
+       <div class="row" id="grid-destaques"></div>
+    </section>
+
+    <!-- 5. GRID DE NOVIDADES -->
+    <section id="novidades" class="container-fluid px-4 px-lg-5" style="background-color: #FDFDFD; border-top: 1px solid #F1EFEA;">
+        <div class="container">
+            <div class="text-center mb-5 pb-2">
+                <span class="text-uppercase mb-2 d-block" style="letter-spacing: 3px; font-size: 0.75rem; color: var(--cor-rose-accent);">Inspiração Editorial</span>
+                <h2 class="titulo-premium">Nossa Vitrine Atual</h2>
+                <p class="text-muted">Monte sua Sacola de Interesse para atendimento personalizado.</p>
+            </div>
+           <div class="masonry" id="grid-produtos"></div>
+        </div>
+    </section>
+
+    <!-- 6. INSTITUCIONAL -->
+    <section id="institucional" class="container-fluid px-0 section-tint">
+        <div class="row g-0 align-items-center">
+            <div class="col-md-6"><img src="https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?auto=format&fit=crop&q=80&w=1200" class="institucional-img" loading="lazy"></div>
+            <div class="col-md-6 institucional-texto">
+                <div class="p-lg-4 text-center text-md-start">
+                    <span class="text-uppercase mb-2 d-block" style="letter-spacing: 3px; font-size: 0.75rem; color: var(--cor-rose-accent);">Moda com Propósito</span>
+                    <h2 class="titulo-premium mb-4" style="font-size: 2.6rem; line-height: 1.2;">Mais do que roupas, <br>um resgate da autoestima.</h2>
+                    <p class="mb-4 font-weight-light" style="line-height: 1.8; color: #444;">A Flor de Ipê nasceu do desejo profundo de oferecer uma experiência acolhedora. Aqui, cada cabide traz cuidado, modelagens que respeitam suas curvas e tendências atuais da moda premium.</p>
+                    <a href="#novidades" class="btn btn-premium">Ver as Peças</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. AVALIAÇÕES -->
+    <section id="avaliacoes" class="container px-4">
+        <div class="text-center mb-5">
+            <span class="text-uppercase mb-2 d-block" style="letter-spacing: 3px; font-size: 0.75rem; color: var(--cor-rose-accent);">Opinião de Quem Importa</span>
+            <h2 class="titulo-premium">Quem Vive a Experiência</h2>
+            <p class="text-muted">Histórias reais de mulheres que redescobriram seu estilo conosco.</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12" style="max-width: 1000px; margin: 0 auto;">
+                <script defer async src='https://cdn.trustindex.io/loader.js?6c724e1756571427ca16d754564'></script>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. SEO LOCAL & MAPA -->
+    <section class="container-fluid" style="background-color: #FAF9F6; border-top: 1px solid rgba(0,0,0,0.02);">
+        <div class="container text-center py-3">
+            <span class="text-uppercase mb-2 d-block" style="letter-spacing: 3px; font-size: 0.75rem; color: var(--cor-rose-accent);">Boutique Física em Mato Grosso</span>
+            <h2 class="titulo-premium mb-4">Moda Feminina Plus Size em Sinop - MT</h2>
+            <p class="mx-auto text-muted mb-5 font-weight-light" style="max-width: 800px; line-height: 1.8;">
+                Se você valoriza o toque dos tecidos premium, corte de alta alfaiataria e deseja uma consultoria de estilo exclusiva em um ambiente reservado e sofisticado, visite nosso espaço. Venha desfrutar de um atendimento focado unicamente em ressaltar a sua beleza.
+            </p>
+            <a href="#" target="_blank" class="text-decoration-none link-maps">
+                <div style="background:#EBEAE6; height: 350px; width: 100%; display:flex; flex-direction:column; align-items:center; justify-content:center; border: 1px solid rgba(0,0,0,0.05); transition: background 0.3s ease;" onmouseover="this.style.background='#e3e1db'" onmouseout="this.style.background='#EBEAE6'">
+                    <i class="bi bi-geo-alt fs-2 mb-2" style="color: var(--cor-rose-accent);"></i>
+                    <span class="text-dark font-weight-bold">Espaço Flor de Ipê Boutique</span>
+                    <span class="btn btn-outline-premium mt-3" style="font-size: 0.7rem; padding: 10px 20px;">Abrir no Google Maps</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- 9. RODAPÉ DINÂMICO -->
+    <footer class="bg-dark text-white py-5" style="background-color: #1A1918 !important;">
+        <div class="container px-4">
+            <div class="row g-5">
+                <div class="col-md-4 text-center text-md-start">
+                    <h4 class="titulo-premium text-white mb-3" style="letter-spacing: 2px;">FLOR DE IPÊ</h4>
+                    <p class="text-white-50 font-weight-light small" style="line-height: 1.7;">A união perfeita entre a exclusividade de uma boutique de luxo e o acolhimento sob medida para corpos reais. Moda Plus Size Premium.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h6 class="text-uppercase mb-4" style="letter-spacing: 2px; font-size: 0.8rem;">Atendimento Privado</h6>
+                    
+                    <!-- Os horários e endereço e informação de correio serão injetados aqui via JS -->
+                    <ul class="list-unstyled text-white-50 small" style="line-height: 1.8;" id="lista-horarios">
+                        <!-- Carregando do GitHub... -->
+                    </ul>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <h6 class="text-uppercase mb-4" style="letter-spacing: 2px; font-size: 0.8rem;">Canais de Contato</h6>
+                    <a href="#" target="_blank" class="link-instagram text-white fs-4 me-3 opacity-75"><i class="bi bi-instagram"></i></a>
+                    <a href="#" target="_blank" class="link-facebook text-white fs-4 me-3 opacity-75"><i class="bi bi-facebook"></i></a>
+                    <a href="#" target="_blank" class="link-tiktok text-white fs-4 me-3 opacity-75"><i class="bi bi-tiktok"></i></a>
+                    <a href="#" target="_blank" class="link-whatsapp text-white fs-4 opacity-75"><i class="bi bi-whatsapp"></i></a>
+                </div>
+            </div>
+            <hr class="mt-5 mb-4" style="border-color: rgba(255,255,255,0.08);">
+            <div class="text-center text-white-50 small" style="font-size: 0.75rem; letter-spacing: 1px;">
+                &copy; 2026 Flor de Ipê Moda Feminina Plus Size Premium. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- BARRA FIXA MOBILE -->
+    <nav class="mobile-bottom-bar d-md-none shadow-lg">
+        <div class="d-flex justify-content-around">
+            <a href="#" target="_blank" class="nav-link link-whatsapp"><i class="bi bi-whatsapp"></i>Contato</a>
+            <a href="#" target="_blank" class="nav-link link-instagram"><i class="bi bi-instagram"></i>Instagram</a>
+            <a href="#" target="_blank" class="nav-link link-maps"><i class="bi bi-geo-alt"></i>Chegar</a>
+            <a href="#" class="nav-link position-relative" data-bs-toggle="offcanvas" data-bs-target="#sacolaOffcanvas">
+                <i class="bi bi-handbag"></i>Sacola
+                <span id="contador-sacola-mobile" class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-dark" style="font-size: 0.6rem;">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- SACOLA OFFCANVAS -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="sacolaOffcanvas" style="background-color: var(--cor-fundo);">
+        <div class="offcanvas-header border-bottom py-4">
+            <h5 class="offcanvas-title titulo-premium" style="letter-spacing: 1px;">Sua Sacola de Interesse</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <p class="text-muted small mb-4" style="line-height: 1.6;">Estes são os looks e curadorias que você escolheu. Enviaremos a lista diretamente para nossa equipe via WhatsApp para checar sua numeração e separar suas peças.</p>
+            <div id="itens-sacola" class="flex-grow-1 overflow-auto mb-4"></div>
+            <div class="border-top pt-4">
+                <button id="btn-whatsapp" class="btn btn-premium w-100 d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-whatsapp"></i> Enviar Lista de Desejos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
