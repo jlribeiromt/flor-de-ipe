@@ -130,6 +130,32 @@ document.getElementById('btn-whatsapp').addEventListener('click', () => {
     window.open(`https://wa.me/${configsLoja.whatsapp}?text=${msg}`, '_blank');
 });
 
+function renderizarProdutos() {
+    const grid = document.getElementById('grid-produtos');
+    if (!grid) return;
+    
+    grid.innerHTML = produtosJSON.map(prod => `
+        <div class="masonry-item">
+            <img src="${URL_IMAGEM_CATALOGO}${prod.imagem}" alt="${prod.nome}" loading="lazy" 
+                 onclick="abrirModal('${prod.nome}', '${URL_IMAGEM_CATALOGO}${prod.imagem}', '${prod.descricao}')" 
+                 style="cursor: pointer;">
+            <div class="produto-info">
+                <h5 class="titulo-premium">${prod.nome}</h5>
+                <button class="btn btn-outline-premium w-100 py-2" onclick="adicionarASacola(${prod.id})">
+                    Adicionar à Sacola
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function abrirModal(nome, img, desc) {
+    document.getElementById('modalNome').innerText = nome;
+    document.getElementById('modalImagem').src = img;
+    document.getElementById('modalDescricao').innerText = desc;
+    new bootstrap.Modal(document.getElementById('modalProduto')).show();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     carregarDados();
     atualizarInterfaceSacola();
